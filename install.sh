@@ -2,6 +2,9 @@
 
 echo "Setting up your Mac..."
 
+# Install rvm (Ruby Version Manager) and ruby with some gems
+\curl -sSL https://get.rvm.io | bash -s stable --ruby --gems=travis,bundler --ignore-dotfiles
+
 # Check for Homebrew and install if we don't have it
 if test ! $(which brew); then
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
