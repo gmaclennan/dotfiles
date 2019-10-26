@@ -1,6 +1,10 @@
 #!/bin/zsh
 [ -f /Users/gregor/.travis/travis.sh ] && source /Users/gregor/.travis/travis.sh
 
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
 # Path to your dotfiles.
 export DOTFILES=$HOME/.dotfiles
 
