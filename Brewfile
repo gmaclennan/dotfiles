@@ -1,88 +1,190 @@
-# Taps
-tap 'homebrew/cask'
-tap 'homebrew/cask-eid'
-tap 'homebrew/cask-fonts'
-tap 'homebrew/cask-versions'
-tap 'homebrew/bundle'
-
-# Binaries
-brew 'awscli'
-brew 'bash' # Latest Bash version
-brew 'bat' # "cat" on steroids
-brew 'coreutils' # Those that come with macOS are outdated
-brew 'git'
-brew 'gnupg2'
-brew 'grep'
-brew 'httpie'
-brew 'hub'
-brew 'mackup'
-brew 'mas' # Mac App Store manager
-brew 'pkg-config' # https://github.com/driesvints/dotfiles/issues/20
-brew 'trash' # Manage the Trash bin
-brew 'tree' # List directories in a tree structure
-brew 'zlib' # Needed for Memcached
-
-# Development
-brew 'php'
-brew 'php@7.2'
-brew 'mysql'
-brew 'nginx'
-brew 'node'
-brew 'redis'
-
-# Apps
-cask 'aerial'
-cask 'alfred'
-cask 'bartender'
-cask 'caffeine'
-cask 'discord'
-cask 'docker'
-cask 'dropbox'
-cask 'firefox'
-cask 'github'
-cask 'google-backup-and-sync'
-cask 'google-chrome'
-cask 'gpg-suite'
-cask 'insomnia'
-cask 'java'
-cask 'mysqlworkbench'
-cask 'phpstorm'
-cask 'skype'
-cask 'slack'
-cask 'sublime-text'
-cask 'tableplus'
-cask 'telegram-desktop'
-cask 'tor-browser'
-cask 'transmission'
-cask 'transmit'
-cask 'vagrant'
-cask 'virtualbox' # Might need to allow access in Security settings
-cask 'virtualbox-extension-pack'
-
-# Quicklook
-cask 'qlcolorcode'
-cask 'qlmarkdown'
-cask 'quicklook-json'
-cask 'quicklook-csv'
-cask 'qlstephen'
-
-# Fonts
-cask 'font-lato'
-cask 'font-open-sans'
-cask 'font-roboto'
-cask 'font-source-code-pro-for-powerline'
-cask 'font-source-code-pro'
-cask 'font-source-sans-pro'
-cask 'font-source-serif-pro'
-
-# Mac App Store
-mas '1Password', id: 1333542190
-mas 'Byword', id: 420212497
-mas 'Giphy Capture', id: 668208984
-mas 'Keynote', id: 409183694
-mas 'Sip', id: 507257563
-mas 'Spark', id: 1176895641
-mas 'The Unarchiver', id: 425424353
-mas 'Things', id: 904280696
-mas 'Tweetbot', id: 1384080005
-mas 'WhatsApp', id: 1147396723 
+tap "adoptopenjdk/openjdk"
+tap "heroku/brew"
+tap "holgerbrandl/tap"
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/core"
+tap "homebrew/services"
+tap "mapbox/cli"
+tap "osgeo/osgeo4mac"
+tap "wix/brew"
+brew "openssl"
+brew "readline"
+brew "sqlite"
+brew "python"
+brew "asciinema"
+brew "autoconf"
+brew "automake"
+brew "awscli"
+brew "b2sum", link: false
+brew "bash"
+brew "bfg"
+brew "blueutil"
+brew "c-kermit"
+brew "gettext"
+brew "libffi"
+brew "coreutils"
+brew "dashing"
+brew "dpkg"
+brew "duti"
+brew "popt"
+brew "exiftool"
+brew "fakeroot"
+brew "giflib"
+brew "libevent"
+brew "lame"
+brew "openjpeg"
+brew "ffmpeg"
+brew "fswatch"
+brew "gd"
+brew "jasper"
+brew "numpy"
+brew "gdal"
+brew "gdk-pixbuf"
+brew "gdrive"
+brew "git"
+brew "libksba"
+brew "gnupg"
+brew "git-secret"
+brew "go"
+brew "pkg-config"
+brew "gpp"
+brew "gptfdisk"
+brew "lua"
+brew "highlight"
+brew "htop"
+brew "httrack"
+brew "hub"
+brew "imagemagick"
+brew "iozone"
+brew "iperf"
+brew "iperf3"
+brew "jq"
+brew "kotlin"
+brew "libcroco"
+brew "libexif"
+brew "libgphoto2"
+brew "libicns"
+brew "liblwgeom"
+brew "libyaml"
+brew "lzlib"
+brew "mackup"
+brew "makedepend"
+brew "makensis"
+brew "mapnik"
+brew "mas"
+brew "media-info"
+brew "mercurial"
+brew "mono"
+brew "mosh"
+brew "mysql", link: false
+brew "netcat"
+brew "nmap"
+brew "node"
+brew "optipng"
+brew "orc"
+brew "osmosis"
+brew "p7zip"
+brew "pandoc"
+brew "pngcheck"
+brew "pngcrush"
+brew "pth"
+brew "py2cairo"
+brew "pygobject3"
+brew "redis"
+brew "repo"
+brew "rmtrash"
+brew "rpm"
+brew "sane-backends"
+brew "scons"
+brew "shellcheck"
+brew "shfmt"
+brew "speedtest-cli"
+brew "ssh-copy-id"
+brew "starship"
+brew "telnet"
+brew "terraform"
+brew "tidy-html5"
+brew "tippecanoe"
+brew "tor"
+brew "tree"
+brew "truncate", link: false
+brew "watchman"
+brew "wget"
+brew "wine"
+brew "yarn"
+brew "youtube-dl"
+brew "zlib"
+brew "heroku/brew/heroku"
+brew "holgerbrandl/tap/kscript"
+brew "mapbox/cli/mapbox"
+brew "osgeo/osgeo4mac/sip-qt4"
+cask "adobe-creative-cloud"
+cask "adobe-creative-cloud-cleaner-tool"
+cask "airserver"
+cask "alfred"
+cask "android-file-transfer"
+cask "android-ndk"
+cask "android-platform-tools"
+cask "android-sdk"
+cask "android-studio"
+cask "atom"
+cask "dash"
+cask "docker"
+cask "fantastical"
+cask "firefox"
+cask "gfxcardstatus"
+cask "gimp"
+cask "github"
+cask "google-chrome"
+cask "google-earth-pro"
+cask "handbrake"
+cask "iterm2"
+cask "kap"
+cask "keybase"
+cask "ksdiff"
+cask "notion"
+cask "omnidisksweeper"
+cask "pester"
+cask "private-internet-access"
+cask "qgis"
+cask "quicklook-json"
+cask "react-native-debugger"
+cask "skype"
+cask "sourcetree"
+cask "suspicious-package"
+cask "teamviewer"
+cask "tripmode"
+cask "visual-studio-code"
+cask "vlc"
+cask "webtorrent"
+cask "xquartz"
+cask "zoomus"
+cask "adoptopenjdk/openjdk/adoptopenjdk8"
+mas "AdGuard for Safari", id: 1440147259
+mas "Bear", id: 1091189122
+mas "Byword", id: 420212497
+mas "CleanMyDrive 2", id: 523620159
+mas "Day One", id: 1055511498
+mas "Evernote", id: 406056744
+mas "GIF Brewery 3", id: 1081413713
+mas "Icon Slate", id: 439697913
+mas "iHex", id: 909566003
+mas "iMovie", id: 408981434
+mas "Keynote", id: 409183694
+mas "LanScan", id: 472226235
+mas "Magnet", id: 441258766
+mas "Marked 2", id: 890031187
+mas "Menu World Time", id: 1446377255
+mas "Numbers", id: 409203825
+mas "Pages", id: 409201541
+mas "powershot", id: 877479749
+mas "Reeder", id: 880001334
+mas "RunCat", id: 1429033973
+mas "Slack", id: 803453959
+mas "The Unarchiver", id: 425424353
+mas "Todoist", id: 585829637
+mas "TripIt", id: 1475712010
+mas "Twitter", id: 1482454543
+mas "WhatsApp", id: 1147396723
+mas "Xcode", id: 497799835
