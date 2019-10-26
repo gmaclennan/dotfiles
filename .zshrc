@@ -1,8 +1,6 @@
 #!/bin/zsh
 [ -f /Users/gregor/.travis/travis.sh ] && source /Users/gregor/.travis/travis.sh
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 # Path to your dotfiles.
@@ -125,6 +123,18 @@ fi
 # You may need to manually set your language environment
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
+
+# Make it easy to append your own customizations that override the above by
+# loading all files from the ~/.zshrc.d directory
+mkdir -p ~/.zshrc.d
+if [ -n "$(/bin/ls ~/.zshrc.d)" ]; then
+  for dotfile in ~/.zshrc.d/*
+  do
+    if [ -r "${dotfile}" ]; then
+      source "${dotfile}"
+    fi
+  done
+fi
 
 # Load iTerm shell integrations if found.
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
