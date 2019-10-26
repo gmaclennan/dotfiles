@@ -10,6 +10,9 @@ function avd() {
 	emulator -avd $(emulator -list-avds | head -n 1)
 }
 
+# weather forecast
+weather() { curl -4 wttr.in/${1:-london} }
+
 # Simple calculator
 function calc() {
 	local result="";

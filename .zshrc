@@ -9,7 +9,7 @@ export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 export DOTFILES=$HOME/.dotfiles
 
 # Load the shell dotfiles, and then some:
-for file in "${DOTFILES}"/.{path,aliases,functions}; do
+for file in "${DOTFILES}"/{path,aliases,functions}.zsh; do
 	[ -r "$file" ] && [ -f "$file" ] && source "$file";
 done;
 unset file;
