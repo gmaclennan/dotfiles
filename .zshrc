@@ -8,6 +8,12 @@ export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 # Path to your dotfiles.
 export DOTFILES=$HOME/.dotfiles
 
+# Load the shell dotfiles, and then some:
+for file in "${DOTFILES}"/.{path,aliases,functions}; do
+	[ -r "$file" ] && [ -f "$file" ] && source "$file";
+done;
+unset file;
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
