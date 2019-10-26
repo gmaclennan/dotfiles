@@ -1,109 +1,126 @@
 #!/bin/zsh
+[ -f /Users/gregor/.travis/travis.sh ] && source /Users/gregor/.travis/travis.sh
+
 # Path to your dotfiles.
 export DOTFILES=$HOME/.dotfiles
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
+# export ZSH_DISABLE_COMPFIX=true
+# export ZSH=${HOME}/.zgen/robbyrussell/oh-my-zsh-master
+export NVM_AUTO_USE=true
 
-# Enable completions
-autoload -Uz compinit && compinit
+# Load compinit
+autoload -Uz compinit && compinit -C
 
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+# Uncomment following line if you want red dots to be displayed while waiting for completion
+export COMPLETION_WAITING_DOTS="true"
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+# Correct spelling for commands
+setopt correct
 
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+# turn off the infernal correctall for filenames
+unsetopt correctall
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
+# Yes, these are a pain to customize. Fortunately, Geoff Greer made an online
+# tool that makes it easy to customize your color scheme and keep them in sync
+# across Linux and OS X/*BSD at http://geoff.greer.fm/lscolors/
 
-# Uncomment the following line to automatically update without prompting.
-# DISABLE_UPDATE_PROMPT="true"
+export CLICOLOR=1
+export LSCOLORS='Exfxcxdxbxegedabagacad'
+export LS_COLORS='di=1;34;40:ln=35;40:so=32;40:pi=33;40:ex=31;40:bd=34;46:cd=34;43:su=0;41:sg=0;46:tw=0;42:ow=0;43:'
 
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+load-our-ssh-keys() {
+  # Fun with SSH
+  if [ $(ssh-add -l | grep -c "The agent has no identities." ) -eq 1 ]; then
+    if [[ "$(uname -s)" == "Darwin" ]]; then
+      # macOS allows us to store ssh key pass phrases in the keychain, so try
+      # to load ssh keys using pass phrases stored in the macOS keychain.
+      #
+      # You can use ssh-add -K /path/to/key to store pass phrases into
+      # the macOS keychain
+      ssh-add -k
+    fi
 
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS=true
+    for key in $(find ~/.ssh -type f -a \( -name '*id_rsa' -o -name '*id_dsa' -name '*id_ecdsa' \))
+    do
+      if [ -f ${key} -a $(ssh-add -l | grep -c "${key//$HOME\//}" ) -eq 0 ]; then
+        # ssh-add ${key}
+      fi
+    done
+  fi
+}
 
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
+load-our-ssh-keys
 
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-HIST_STAMPS="yyy-mm-dd"
-
-# Would you like to use another custom folder than $ZSH/custom?
-ZSH_CUSTOM=$DOTFILES
-
-# Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(
-  git
-  zsh-nvm
-  zsh-better-npm-completion
-  zsh-syntax-highlighting
-  zsh-autosuggestions
+# setup zgen
+export ZGEN_DIR="${HOME}"/.zgen
+[[ -d "$ZGEN_DIR" ]] || git clone https://github.com/tarjoilija/zgen.git --depth=1 "$ZGEN_DIR"
+ZGEN_RESET_ON_CHANGE=(
+  ${DOTFILES}/.zshrc
 )
 
-source $ZSH/oh-my-zsh.sh
+# load zgen
+source "${ZGEN_DIR}/zgen.zsh"
 
-# User configuration
+# if the init script doesn't exist
+if ! zgen saved; then
+  echo "Creating a zgen save"
+  # zgen oh-my-zsh
 
-# export MANPATH="/usr/local/man:$MANPATH"
+  # prezto and modules
+  zgen prezto
+
+  # A Zsh plugin to help remembering those shell aliases and Git aliases you
+  # once defined. https://github.com/djui/alias-tips
+  zgen load djui/alias-tips
+  # Update nvm with `nvm upgrade`. Auto-switched Node if .nvmrc is defined.
+  zgen load lukechilds/zsh-nvm
+  # Shows detailed information on script contents for npm run
+  zgen load lukechilds/zsh-better-npm-completion
+  # Fish shell-like syntax highlighting for Zsh.
+  zgen load zsh-users/zsh-syntax-highlighting
+
+  # Sets directory options and defines directory aliases.
+  zgen prezto directory
+  # Enhances git by providing aliases and functions
+  zgen prezto git
+  # Sets history options and defines history aliases.
+  zgen prezto history
+
+  if [ $(uname -a | grep -ci Darwin) = 1 ]; then
+    # Load macOS-specific plugins
+    # Defines macOS aliases and functions.
+    zgen prezto osx
+  fi
+
+  # Loads and configures tab completion and provides additional completions from
+  # the zsh-completions project. **Must be after utility module**
+  zgen prezto completion
+  # Type in any part of a previously entered command and press up and down to
+  # cycle through matching commands. **Must be after syntax-highlighting
+  zgen prezto history-substring-search
+  # Type in any part of a previously entered command and Zsh suggests commands
+  # as you type based on history and completions. **Must be last**
+  zgen prezto autosuggestions
+
+  zgen prezto 'autosuggestions' color 'yes'
+  zgen prezto 'autosuggestions:color' found 'fg=8'
+
+  # generate the init script from plugins above
+  zgen save
+fi
 
 # You may need to manually set your language environment
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+# Load iTerm shell integrations if found.
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
+# Cross-shell prompt https://starship.rs
 eval "$(starship init zsh)"
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
