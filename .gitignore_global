@@ -36,6 +36,11 @@
 ehthumbs.db
 Thumbs.db
 
+# Private files #
+#################
+.env
+*.pem
+
 # Other Misc #
 ##############
 .idea/
