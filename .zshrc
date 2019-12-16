@@ -144,3 +144,26 @@ eval "$(starship init zsh)"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+# fnm
+eval "$(fnm env --multi)"
+
+find-up() {
+  path=$(pwd)
+  while [[ "$path" != "" && ! -e "$path/$1" ]]; do
+    path=${path%/*}
+  done
+  echo "$path"
+}
+
+autoload -U add-zsh-hook
+_fnm_autoload_hook () {
+	nvmrc_path=$(find-up .nvmrc | tr -d '[:space:]')
+
+  if [ -n "$nvmrc_path" ]; then
+    nvm_version=`cat $nvmrc_path/.nvmrc`
+    fnm use $nvm_version --quiet
+  else
+    fnm use default --quiet
+  fi
+}
+add-zsh-hook chpwd _fnm_autoload_hook && _fnm_autoload_hook
