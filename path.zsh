@@ -8,3 +8,4 @@ export PATH="node_modules/.bin:$PATH"
 
 export ANDROID_SDK_ROOT="$HOME/Library/Android/sdk"
 export ANDROID_NDK_HOME="$HOME/Library/Android/sdk/ndk-bundle"
+export GPG_TTY=$(tty)
