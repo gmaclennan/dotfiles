@@ -17,7 +17,7 @@ unset file;
 
 # export ZSH_DISABLE_COMPFIX=true
 # export ZSH=${HOME}/.zgen/robbyrussell/oh-my-zsh-master
-export NVM_AUTO_USE=true
+# export NVM_AUTO_USE=true
 
 # Load compinit
 autoload -Uz compinit && compinit -C
@@ -84,7 +84,7 @@ if ! zgen saved; then
   # once defined. https://github.com/djui/alias-tips
   zgen load djui/alias-tips
   # Update nvm with `nvm upgrade`. Auto-switched Node if .nvmrc is defined.
-  zgen load lukechilds/zsh-nvm
+  # zgen load lukechilds/zsh-nvm
   # Shows detailed information on script contents for npm run
   zgen load lukechilds/zsh-better-npm-completion
   # Fish shell-like syntax highlighting for Zsh.
