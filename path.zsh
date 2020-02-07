@@ -7,5 +7,9 @@ export PATH="node_modules/.bin:$PATH"
 #export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 
 export ANDROID_SDK_ROOT="$HOME/Library/Android/sdk"
+export ANDROID_SDK="$ANDROID_SDK_ROOT"
 export ANDROID_NDK_HOME="$HOME/Library/Android/sdk/ndk-bundle"
 export GPG_TTY=$(tty)
+
+# Use emulator and SDK tools from local SDK folder before global
+export PATH="$ANDROID_SDK/emulator:$ANDROID_SDK/tools:$PATH"
