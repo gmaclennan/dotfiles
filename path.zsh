@@ -13,3 +13,5 @@ export GPG_TTY=$(tty)
 
 # Use emulator and SDK tools from local SDK folder before global
 export PATH="$ANDROID_SDK/emulator:$ANDROID_SDK/tools:$PATH"
+# Use latest openssl from homebrew
+export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
