@@ -28,6 +28,10 @@ export COMPLETION_WAITING_DOTS="true"
 # Correct spelling for commands
 setopt correct
 
+# Don't throw an error for wildcards like ^ in a command
+# Stops errors from `npm install my-module@^1` etc.
+setopt +o nomatch
+
 # turn off the infernal correctall for filenames
 unsetopt correctall
 
