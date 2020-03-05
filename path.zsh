@@ -12,6 +12,6 @@ export ANDROID_NDK_HOME="$HOME/Library/Android/sdk/ndk-bundle"
 export GPG_TTY=$(tty)
 
 # Use emulator and SDK tools from local SDK folder before global
-export PATH="$ANDROID_SDK/emulator:$ANDROID_SDK/tools:$PATH"
+export PATH="$ANDROID_SDK/emulator:$ANDROID_SDK/platform-tools:$ANDROID_SDK/tools/bin:$PATH"
 # Use latest openssl from homebrew
 export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
